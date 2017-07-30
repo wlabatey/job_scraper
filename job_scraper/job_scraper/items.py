@@ -12,19 +12,9 @@ class StackOverflowItem(Item):
     title = Field()
     company = Field()
     location = Field()
+    url = Field()
     salary = Field()
     date_posted = Field()
     tags = Field()
-
-    # Job advert page information
-    job_type = Field()
-    experience_level = Field()
-    role = Field()
-
-    description = Field()
-    requirements = Field()
-
-    # Other
-    source_url = Field()
-    crawl_timestmap = Field()
+    crawl_timestamp = Field()
     pass

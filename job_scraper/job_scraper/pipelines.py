@@ -12,10 +12,9 @@ class JobScraperPipeline(object):
         
         keywords = ['dev ops', 'devops', 'aws', 'cloud', 'linux']
         
-        title = item['title'][0].lower()
+        title = item['title'].lower()
 
         if any(keyword in title for keyword in keywords):
             return item
         else:
             raise DropItem("Job title doesn't contain our search terms")
-
