@@ -14,3 +14,4 @@ Viewable in `static_page/index.html`.
 - Add more job boards
 - Add 'hide' checkbox to each job element
 - Use css grid to display as boxes (4/5 per row)
+- Consider adding tabs to display the different job boards separately when they are done.
