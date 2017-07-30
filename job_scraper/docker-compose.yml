@@ -1,7 +1,0 @@
-version: '3'
-services:
-  php-app:
-    image: php:7.0-apache
-    volumes:
-      - ./www:/var/www/html
-    network_mode: "host"

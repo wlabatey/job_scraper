@@ -1,0 +1,60 @@
+<html>
+  <head>
+    <title>Dev Ops Job Listings</title>
+
+      <style>
+        .job p {
+          margin: 0;
+        }
+
+        .job {
+          display: block;
+          margin: 10px 0;
+          padding: 5px;
+          text-align: center;
+          border: solid 1px black;
+        }
+     </style>  
+  </head>
+
+  <body>
+    <div class="container">
+    </div>
+
+
+  <script type="text/javascript">
+    
+    const div = document.querySelector(".container"); 
+    const frag = document.createDocumentFragment();
+    let fileURL = 'https://s3.eu-west-2.amazonaws.com/jobs-json/test.json';
+
+    fetch(fileURL)
+      .then(res => res.json())
+      .then((json) => {
+       
+        // Loop through json and create elements
+        json.forEach(function(el, i) {
+          var jobDiv = document.createElement('div');
+          jobDiv.className = 'job';
+          var jobTitle =  document.createElement('p');
+          var boldTitle =  document.createElement('b');
+          var link = document.createElement('a');
+          link.innerHTML = el.title;
+          link.href = el.url;
+          link.target = "_blank";
+          boldTitle.appendChild(link);
+          jobTitle.appendChild(boldTitle);
+          jobDiv.appendChild(jobTitle);
+          jobDiv.appendChild( document.createElement('p') ).innerHTML = el.company;
+          jobDiv.appendChild( document.createElement('p') ).innerHTML = el.location;
+          jobDiv.appendChild( document.createElement('p') ).innerHTML = el.date_posted;
+          jobDiv.appendChild( document.createElement('p') ).innerHTML = el.salary;
+          frag.appendChild(jobDiv);
+        });
+        div.appendChild(frag);
+      })
+      .catch(err => console.log(err));
+
+  </script>
+  </body>
+</html>
