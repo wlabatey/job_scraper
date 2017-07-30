@@ -2,7 +2,7 @@
 
 import scrapy
 from scrapy.spiders import CrawlSpider, Rule
-from scrapy.selector import HtmlXPathSelector
+from scrapy.selector import Selector
 from scrapy.linkextractors import LinkExtractor
 from job_scraper.items import StackOverflowItem
 
@@ -27,7 +27,7 @@ class StackOverflowSpider(CrawlSpider):
 
     def parse_item(self, response):
         self.log('\n Crawling %s\n' % (response.url))
-        hxs = HtmlXPathSelector(response)
+        hxs = Selector(response)
         job = hxs.xpath('//div[@id="job-detail"]')
 
         keywords = ['dev ops', 'devops', 'aws', 'cloud', 'linux']
