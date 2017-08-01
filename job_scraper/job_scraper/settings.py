@@ -65,7 +65,8 @@ DOWNLOAD_DELAY = 0.05
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-   'job_scraper.pipelines.JobScraperPipeline': 300,
+   'job_scraper.pipelines.JobScraperPipeline': 100,
+   'job_scraper.pipelines.DuplicatesPipeline': 500,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)

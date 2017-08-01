@@ -22,3 +22,15 @@ class JobScraperPipeline(object):
             return item
         else:
             raise DropItem("Job title doesn't contain our search terms")
+
+class DuplicatesPipeline(object):
+    def __init__(self):
+        self.title_company = set()
+
+    def process_item(self, item, spider):
+        job_title_company = item['title'] + item['company']
+        if job_title_company in self.title_company:
+            raise DropItem("Duplicate item found: %s" % (item))
+        else: 
+            self.title_company.add(job_title_company)
+            return item
