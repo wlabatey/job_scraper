@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 
 import scrapy
 import re
@@ -9,15 +10,15 @@ from job_scraper.items import StackOverflowItem
 from datetime import datetime
 
 class StackOverflowSpider(Spider):
-    name = "StackOverflow"
+    name = "stackoverflow"
     allowed_domains = ['stackoverflow.com']
 
     def start_requests(self):
         search_terms = ["dev+ops", "devops", "junior+dev+ops", "junior+devops", "aws", "cloud", "linux"]
         location = "London%2C+United+Kingdom"
         distance = "20&u=Miles"
-        search_query = 'sort=i&q=%s&l=%s&d=%s' # % (search_terms[0], location, distance)
-        base_url = 'https://stackoverflow.com/jobs?' # % (search_query)
+        search_query = 'sort=i&q=%s&l=%s&d=%s' 
+        base_url = 'https://stackoverflow.com/jobs?'
         start_urls = []
         for i, word in enumerate(search_terms):
             start_urls.append(base_url + search_query % (search_terms[i], location, distance))

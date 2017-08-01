@@ -8,7 +8,6 @@
 from scrapy.item import Item, Field
 
 class StackOverflowItem(Item):
-    # First page information
     title = Field()
     company = Field()
     location = Field()
@@ -16,6 +15,17 @@ class StackOverflowItem(Item):
     salary = Field()
     date_posted = Field()
     tags = Field()
+    crawl_timestamp = Field()
+    jobBoard = Field()
+    pass
+
+class DiceItem(Item):
+    title = Field()
+    company = Field()
+    location = Field()
+    url = Field()
+    salary = Field()
+    date_posted = Field()
     crawl_timestamp = Field()
     jobBoard = Field()
     pass

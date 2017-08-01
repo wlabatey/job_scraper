@@ -7,9 +7,11 @@ At the moment, json file must be hosted for the html page to work correctly with
 Viewable in `static_page/index.html`. 
 
 ## To Do
+
 - Add more job boards
 - Add 'hide' checkbox to each job element
 - Consider adding tabs to display the different job boards separately when they are done.
+- ~~Implement JSON export pipeline to export each spider's results into separate json files, then fetch and display each json file separately page.~~
 - ~~Use javascript instead of php to dynamically create the page elements.~~
 - ~~Host the static file on S3.~~
 - ~~Use css grid to display as boxes (4/5 per row)~~
