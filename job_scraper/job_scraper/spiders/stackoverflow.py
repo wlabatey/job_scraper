@@ -2,7 +2,6 @@
 
 import scrapy
 import re
-from scrapy import log
 from scrapy.spiders import BaseSpider
 from scrapy.selector import Selector
 from scrapy.linkextractors import LinkExtractor
@@ -27,7 +26,6 @@ class StackOverflowSpider(BaseSpider):
     def parse(self, response):
         hxs = Selector(response)
         jobs = hxs.xpath('//div[contains(@class, "-job-item")]')
-        self.log(jobs)
         items = []
         for job in jobs:
             item = StackOverflowItem()
@@ -40,6 +38,4 @@ class StackOverflowSpider(BaseSpider):
             item["crawl_timestamp"] = datetime.now().strftime("%H:%M:%S %Y-%m-%d") 
             item["jobBoard"] = "stackOverflow"
             items.append(item)
-            self.log(item)
-        self.log(items)
         return items
