@@ -3,58 +3,110 @@
     <title>Dev Ops Job Listings</title>
 
       <style>
+
+        .container {
+          max-width: 1100px;
+          margin: 0 auto;
+        }
+
         .job p {
           margin: 0;
         }
 
         .job {
-          display: block;
+          display: inline-block;
+          width: 45%;
+          height: 150px;
           margin: 10px 0;
-          padding: 5px;
+          padding: 20px;
           text-align: center;
           border: solid 1px black;
         }
+
+
+        .controls {
+          margin: 0 auto;
+          text-align: center;
+        }
+
+        .controls label {
+          margin: 0 10px 0 5px;
+        }
+
      </style>  
   </head>
 
   <body>
     <div class="container">
+      <div class="controls_container">
+        <div class="controls">
+        <input type="checkbox" name="stackOverflow" id="stackOverflow_select" checked><label for="stackOverflow_select">Stack Overflow</label>
+        <input type="checkbox" name="indeed" id="indeed_select" ><label for="indeed_select">Indeed</label>
+        <input type="checkbox" name="dice" id="dice_select" ><label for="dice_select">Dice</label>
+        <input type="checkbox" name="reed" id="reed_select" ><label for="reed_select">Reed</label>
+        </div>
+      </div>
+
     </div>
+  
+      <script type="text/javascript">
+        
+        const div = document.querySelector(".container"); 
+        const frag = document.createDocumentFragment();
+        var checkboxes = document.querySelectorAll('input[type=checkbox]');
+        let fileURL = 'https://s3.eu-west-2.amazonaws.com/jobs-json/so.json';
+
+        fetch(fileURL)
+          .then(res => res.json())
+          .then((json) => {
+            // Loop through json and create elements
+            json.forEach(function(el, i) {
+              var jobDiv = document.createElement('div');
+              jobDiv.className = 'job ' + el.jobBoard;
+              var jobTitle =  document.createElement('p');
+              var boldTitle =  document.createElement('b');
+              var link = document.createElement('a');
+              link.innerHTML = el.title;
+              link.href = el.url;
+              link.target = "_blank";
+              boldTitle.appendChild(link);
+              jobTitle.appendChild(boldTitle);
+              jobDiv.appendChild(jobTitle);
+              jobDiv.appendChild( document.createElement('p') ).innerHTML = el.company;
+              jobDiv.appendChild( document.createElement('p') ).innerHTML = el.location;
+              jobDiv.appendChild( document.createElement('p') ).innerHTML = el.date_posted;
+              jobDiv.appendChild( document.createElement('p') ).innerHTML = el.salary;
+              frag.appendChild(jobDiv);
+            });
+            div.appendChild(frag);
+            
+            // After jobs created, then loop through checkboxes and hide if checkbox not checked.
+
+            checkboxes.forEach(function(el, i) {
+              var name = '.'+el.name;
+              var jobs = document.querySelectorAll(name);
+              if (el.checked === false) {
+                jobs.forEach(function(el, i) {
+                  el.style.display = "none";
+                });  
+              }
+  
+              // Loop through checkboxes and add eventlistener to detect changes and hide/show divs.
+
+              el.addEventListener('change', function(event) {
+                jobs.forEach(function(el,i) {
+                  el.style.display === "none" ? 
+                    el.style.display = "inline-block" :
+                    el.style.display = "none";
+                });
+              });
+
+            });
+          })
+          .catch(err => console.log(err));
 
 
-  <script type="text/javascript">
-    
-    const div = document.querySelector(".container"); 
-    const frag = document.createDocumentFragment();
-    let fileURL = 'https://s3.eu-west-2.amazonaws.com/jobs-json/so.json';
 
-    fetch(fileURL)
-      .then(res => res.json())
-      .then((json) => {
-       
-        // Loop through json and create elements
-        json.forEach(function(el, i) {
-          var jobDiv = document.createElement('div');
-          jobDiv.className = 'job ' + el.jobBoard;
-          var jobTitle =  document.createElement('p');
-          var boldTitle =  document.createElement('b');
-          var link = document.createElement('a');
-          link.innerHTML = el.title;
-          link.href = el.url;
-          link.target = "_blank";
-          boldTitle.appendChild(link);
-          jobTitle.appendChild(boldTitle);
-          jobDiv.appendChild(jobTitle);
-          jobDiv.appendChild( document.createElement('p') ).innerHTML = el.company;
-          jobDiv.appendChild( document.createElement('p') ).innerHTML = el.location;
-          jobDiv.appendChild( document.createElement('p') ).innerHTML = el.date_posted;
-          jobDiv.appendChild( document.createElement('p') ).innerHTML = el.salary;
-          frag.appendChild(jobDiv);
-        });
-        div.appendChild(frag);
-      })
-      .catch(err => console.log(err));
-
-  </script>
+      </script>
   </body>
 </html>
