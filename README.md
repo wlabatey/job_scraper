@@ -1,17 +1,17 @@
-# Simple Job Scraper with scrapy.
+# Simple Job Scraper
 
-Searches Stackoverflow for dev ops jobs and exports the result into a json file.
+Searches Stackoverflow & Dice for jobs and exports the results into json files.
 
 At the moment, json file must be hosted for the html page to work correctly with the javascript fetch api.
 
-Viewable in `static_page/index.html`. 
+Run `python3 scrape.py` to scrape job sites, upload file to s3 & open `static_page/index.html` in chrome to view the results.
 
 ## To Do
 
-- Add more job boards
-- Add 'hide' checkbox to each job element
+- Add more job boards (weworkremotely, remotive, indeed, reed).
+- Add 'hide' checkbox to each job element.
 - Consider adding tabs to display the different job boards separately when they are done.
-- ~~Implement JSON export pipeline to export each spider's results into separate json files, then fetch and display each json file separately page.~~
+- ~~Implement JSON export pipeline to export each spider's results into separate json files, then fetch and display each json file separately.~~
 - ~~Use javascript instead of php to dynamically create the page elements.~~
 - ~~Host the static file on S3.~~
 - ~~Use css grid to display as boxes (4/5 per row)~~
