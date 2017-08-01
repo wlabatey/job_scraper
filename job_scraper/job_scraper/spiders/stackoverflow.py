@@ -11,15 +11,18 @@ from datetime import datetime
 
 class StackOverflowSpider(BaseSpider):
     name = "StackOverflow"
-    
-    # Eventually, we want to loop through this array and perform a new crawl with the search term in the query
-    search_terms = ["dev+ops", "devops", "junior+dev+ops", "junior+devops", "aws", "cloud", "linux"]
-    location = "London%2C+United+Kingdom"
-    distance = "20&u=Miles"
-    search_query = 'sort=i&q=%s&l=%s&d=%s' % (search_terms[0], location, distance)
-    full_url = 'https://stackoverflow.com/jobs?%s' % (search_query)
     allowed_domains = ['stackoverflow.com']
-    start_urls = [full_url]
+
+    def start_requests(self):
+        search_terms = ["dev+ops", "devops", "junior+dev+ops", "junior+devops", "aws", "cloud", "linux"]
+        location = "London%2C+United+Kingdom"
+        distance = "20&u=Miles"
+        search_query = 'sort=i&q=%s&l=%s&d=%s' # % (search_terms[0], location, distance)
+        base_url = 'https://stackoverflow.com/jobs?' # % (search_query)
+        start_urls = []
+        for i, word in enumerate(search_terms):
+            start_urls.append(base_url + search_query % (search_terms[i], location, distance))
+        return [ scrapy.http.Request(url = start_url) for start_url in start_urls ]
 
     def parse(self, response):
         hxs = Selector(response)

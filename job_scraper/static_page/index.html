@@ -61,6 +61,9 @@
         fetch(fileURL)
           .then(res => res.json())
           .then((json) => {
+
+            console.log(json);
+
             // Loop through json and create elements
             json.forEach(function(el, i) {
               var jobDiv = document.createElement('div');
