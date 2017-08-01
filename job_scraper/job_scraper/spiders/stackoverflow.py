@@ -2,13 +2,13 @@
 
 import scrapy
 import re
-from scrapy.spiders import BaseSpider
+from scrapy.spiders import Spider
 from scrapy.selector import Selector
 from scrapy.linkextractors import LinkExtractor
 from job_scraper.items import StackOverflowItem
 from datetime import datetime
 
-class StackOverflowSpider(BaseSpider):
+class StackOverflowSpider(Spider):
     name = "StackOverflow"
     allowed_domains = ['stackoverflow.com']
 

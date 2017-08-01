@@ -1,1 +1,4 @@
 so.json
+*.swp
+*.pyc
+*.pyo
