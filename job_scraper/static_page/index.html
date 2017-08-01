@@ -26,7 +26,7 @@
     
     const div = document.querySelector(".container"); 
     const frag = document.createDocumentFragment();
-    let fileURL = 'https://s3.eu-west-2.amazonaws.com/jobs-json/test.json';
+    let fileURL = 'https://s3.eu-west-2.amazonaws.com/jobs-json/so.json';
 
     fetch(fileURL)
       .then(res => res.json())
@@ -35,7 +35,7 @@
         // Loop through json and create elements
         json.forEach(function(el, i) {
           var jobDiv = document.createElement('div');
-          jobDiv.className = 'job';
+          jobDiv.className = 'job ' + el.jobBoard;
           var jobTitle =  document.createElement('p');
           var boldTitle =  document.createElement('b');
           var link = document.createElement('a');

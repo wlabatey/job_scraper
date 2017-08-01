@@ -17,4 +17,5 @@ class StackOverflowItem(Item):
     date_posted = Field()
     tags = Field()
     crawl_timestamp = Field()
+    jobBoard = Field()
     pass
