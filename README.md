@@ -18,6 +18,6 @@ Viewable in `static_page/index.html`.
 
 Possible to implement as a Django web app and write items using Django Models with the [scrapy-djangoitem extension](https://github.com/scrapy-plugins/scrapy-djangoitem).
 
-Can deploy to AWS Lambda using [Zappa](https://github.com/Miserlou/Zappa).
+Should be able to deploy the Django app to AWS Lambda using [Zappa](https://github.com/Miserlou/Zappa).
 
 User searches for keywords and selects which job sites to include in search, scrapy adjusts pipeline to filter job titles by key words and then writes the results to database.
