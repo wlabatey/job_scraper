@@ -1,5 +1,2 @@
-so.json
-**/.swp
-**/.pyc
-**/.pyo
-**/__pycache__
+*.pyc
+*.pyo
