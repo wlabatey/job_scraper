@@ -14,7 +14,9 @@ class JobScraperPipeline(object):
         
         keywords = ['dev ops', 'devops', 'aws', 'cloud', 'linux']
 
-        excluded_words = ['asp.net', 'java', 'c#', 'web developer', 'c++', 'windows', 'qa', 'support', '.net']
+        excluded_words = ['asp.net', 'java', 'c#', 'web developer', 'c++', 
+                'windows', 'qa', 'support', '.net', 'manager', 'sales', 
+                'marketing', 'senior', 'snr', 'salesforce', 'crm']
 
         title = item['title'].lower()
 
