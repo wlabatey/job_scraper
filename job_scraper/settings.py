@@ -71,6 +71,7 @@ ITEM_PIPELINES = {
    'job_scraper.pipelines.JobScraperPipeline': 100,
    'job_scraper.pipelines.DuplicatesPipeline': 500,
    'job_scraper.pipelines.JsonExportPipeline': 700,
+   'job_scraper.pipelines.DynamoDBPipeline': 900,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)

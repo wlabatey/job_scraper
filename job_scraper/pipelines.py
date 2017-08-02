@@ -5,6 +5,7 @@
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
 # See: http://doc.scrapy.org/en/latest/topics/item-pipeline.html
 
+import boto3
 from scrapy import signals
 from scrapy.exceptions import DropItem
 from scrapy.exporters import JsonItemExporter
@@ -63,4 +64,44 @@ class JsonExportPipeline(object):
 
     def process_item(self, item, spider):
         self.exporter.export_item(item)
+        return item
+
+class DynamoDBPipeline(object):
+    def __init__(self):
+        self.items = [] 
+
+    @classmethod
+    def from_crawler(cls, crawler):
+        pipeline = cls()
+        crawler.signals.connect(pipeline.spider_opened, signals.spider_opened)
+        crawler.signals.connect(pipeline.spider_closed, signals.spider_closed)
+        return pipeline
+
+    def spider_opened(self, spider):
+        print('Spider %s has started.' % spider.name)
+
+    def spider_closed(self, spider):
+        print('Spider %s has finished.' % spider.name) 
+        print('Writing batch to DynamoDB...') 
+        dynamodb = boto3.resource('dynamodb', region_name='eu-west-2')
+        table = dynamodb.Table('jobScraper')
+        with table.batch_writer(overwrite_by_pkeys=['jobId']) as batch:
+            for item in self.items:
+                batch.put_item(
+                    Item=item        
+                ) 
+        self.items=[]
+
+    def process_item(self, item, spider):
+        currentItem={
+            'jobId': str(item['title']+item['company']),
+            'title': str(item['title']),
+            'company': str(item['company']),
+            'url': str(item['url']),
+            'salary': str(item['salary']),
+            'date_posted': str(item['date_posted']),
+            'crawl_timestamp': str(item['crawl_timestamp']),
+            'job_board': str(item['job_board']),
+        }        
+        self.items.append(currentItem.copy())
         return item

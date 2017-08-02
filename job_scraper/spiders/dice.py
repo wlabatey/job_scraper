@@ -41,6 +41,6 @@ class DiceSpider(CrawlSpider):
             salary = job.xpath('.//p/span[contains(@id, "SALARY")]/text()').extract()
             item["salary"] = salary[0].strip() if salary else "n/a"
             item["crawl_timestamp"] = datetime.now().strftime("%H:%M:%S %Y-%m-%d") 
-            item["jobBoard"] = "dice"
+            item["job_board"] = "dice"
             items.append(item)
         return items

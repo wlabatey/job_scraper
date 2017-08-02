@@ -37,6 +37,6 @@ class StackOverflowSpider(Spider):
             item["date_posted"] = job.xpath('.//p[contains(@class, "-posted-date")]/text()').extract()[0].strip()
             item["salary"] = job.xpath('.//span[@class="-salary"]/text()').extract_first(default='n/a').strip()
             item["crawl_timestamp"] = datetime.now().strftime("%H:%M:%S %Y-%m-%d") 
-            item["jobBoard"] = "stackOverflow"
+            item["job_board"] = "stackOverflow"
             items.append(item)
         return items

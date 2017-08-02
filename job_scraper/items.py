@@ -14,9 +14,8 @@ class StackOverflowItem(Item):
     url = Field()
     salary = Field()
     date_posted = Field()
-    tags = Field()
     crawl_timestamp = Field()
-    jobBoard = Field()
+    job_board = Field()
     pass
 
 class DiceItem(Item):
@@ -27,5 +26,5 @@ class DiceItem(Item):
     salary = Field()
     date_posted = Field()
     crawl_timestamp = Field()
-    jobBoard = Field()
+    job_board = Field()
     pass

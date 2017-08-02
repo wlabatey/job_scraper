@@ -21,9 +21,10 @@ for k in spiders.keys():
 process.start()
 print("Finished scraping...")
 
-print("Uploading to S3...")
-for v in spiders.values():
-    subprocess.Popen(['/usr/bin/s3cmd', 'put', v, '--acl-public', s3_bucket])
+print("Done. Check DynamoDB!")
+# print("Uploading to S3...")
+# for v in spiders.values():
+    # subprocess.Popen(['/usr/bin/s3cmd', 'put', v, '--acl-public', s3_bucket])
 
-print("Opening browser...")
-subprocess.Popen(['google-chrome', static_page])
+# print("Opening browser...")
+# subprocess.Popen(['google-chrome', static_page])
