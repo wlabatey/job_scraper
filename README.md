@@ -8,6 +8,7 @@ Run `python3 scrape.py` to scrape job sites, upload file to s3 & open `static_pa
 
 ## To Do
 
+- Use DynamoDB for storage instead of s3. Use the [AWS Javascript SDK](https://aws.amazon.com/sdk-for-browser/) & [AWS Python SDK](https://aws.amazon.com/sdk-for-python/). Will need to check for existing jobs in table to avoid duplicates on new scrapes. Check pricing. 
 - Add more job boards (weworkremotely, remotive, indeed, reed).
 - Add 'hide' checkbox to each job element.
 - Consider adding tabs to display the different job boards separately when they are done.
