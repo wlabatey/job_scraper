@@ -1,6 +1,6 @@
 # Simple Job Scraper
 
-Searches Stackoverflow & Dice for jobs and saves the results in DynamoDB.
+Searches Stackoverflow & Dice for jobs and saves the results to DynamoDB.
 
 Run `python3 scrape.py` to scrape job sites, save the results to DynamoDB and open `static_page/index.html` in chrome.
 
