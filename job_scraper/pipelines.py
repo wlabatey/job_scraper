@@ -96,6 +96,7 @@ class DynamoDBPipeline(object):
         currentItem={
             'jobId': str(item['title']+item['company']),
             'title': str(item['title']),
+            'location': str(item['location']),
             'company': str(item['company']),
             'url': str(item['url']),
             'salary': str(item['salary']),
