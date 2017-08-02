@@ -12,15 +12,11 @@ from scrapy.exporters import JsonItemExporter
 
 class JobScraperPipeline(object):
     def process_item(self, item, spider):
-        
         keywords = ['dev ops', 'devops', 'aws', 'cloud', 'linux']
-
         excluded_words = ['asp.net', 'java', 'c#', 'web developer', 'c++', 
                 'windows', 'qa', 'support', '.net', 'manager', 'sales', 
                 'marketing', 'senior', 'snr', 'salesforce', 'crm']
-
         title = item['title'].lower()
-
         if any(keyword in title for keyword in excluded_words):
             raise DropItem("Job title contained excluded word")
         elif any(keyword in title for keyword in keywords):
