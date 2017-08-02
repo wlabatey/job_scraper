@@ -1,10 +1,8 @@
 # Simple Job Scraper
 
-Searches Stackoverflow & Dice for jobs and exports the results into json files.
+Searches Stackoverflow & Dice for jobs and saves the results in DynamoDB.
 
-At the moment, json file must be hosted for the html page to work correctly with the javascript fetch api.
-
-Run `python3 scrape.py` to scrape job sites, upload file to s3 & open `static_page/index.html` in chrome to view the results.
+Run `python3 scrape.py` to scrape job sites, save the results to DynamoDB and open `static_page/index.html` in chrome.
 
 ## To Do
 
