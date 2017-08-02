@@ -1,20 +1,6 @@
 const div = document.querySelector('.jobsGrid'); 
 const frag = document.createDocumentFragment();
 const checkboxes = document.querySelectorAll('input[type=checkbox]');
-
-//let so = 'https://s3.eu-west-2.amazonaws.com/jobs-json/stackoverflow.json';
-//let dice = 'https://s3.eu-west-2.amazonaws.com/jobs-json/dice.json';
-//let files = [so, dice];
-//let jsonData = [];
-
-//files.forEach((file,i) => {
-  //fetch(file)
-    //.then((res) => res.json())
-    //.then((json) => jsonData[i] = json)
-    //.then(() => {
-      //if (i === 1) {
-//
-
 const dynamodb = new AWS.DynamoDB();
 const params = {
   TableName: 'jobScraper',
