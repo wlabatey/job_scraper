@@ -6,9 +6,8 @@ Run `python3 scrape.py` to scrape job sites, save the results to DynamoDB and op
 
 ## To Do
 
+- Create a Lambda deployment package of the scrapy project & test (See links at bottom).
 - Add more job boards (weworkremotely, remotive, indeed, reed).
-- Add 'hide' checkbox to each job element.
-- Consider adding tabs to display the different job boards separately when they are done.
 - ~~Use DynamoDB for storage instead of s3. Use the [AWS Javascript SDK](https://aws.amazon.com/sdk-for-browser/) & [AWS Python SDK](https://aws.amazon.com/sdk-for-python/). Will need to check for existing jobs in table to avoid duplicates on new scrapes. Check pricing.~~ Done. Approx. $2/month. 
 - ~~Implement JSON export pipeline to export each spider's results into separate json files, then fetch and display each json file separately.~~
 - ~~Use javascript instead of php to dynamically create the page elements.~~
@@ -17,8 +16,13 @@ Run `python3 scrape.py` to scrape job sites, save the results to DynamoDB and op
 
 ## Future ideas
 
-Possible to implement as a Django web app and write items using Django Models with the [scrapy-djangoitem extension](https://github.com/scrapy-plugins/scrapy-djangoitem).
+Should be able to deploy scrapy as a lambda function which is invokable from API gateway, then host static page in S3.
 
-Should be able to deploy the Django app to AWS Lambda using [Zappa](https://github.com/Miserlou/Zappa).
+Create a button to get new results which calls the API and invokes the lambda function, writing the new results to DynamoDB and then rebuild the elements on the page.
 
-User searches for keywords and selects which job sites to include in search, scrapy adjusts pipeline to filter job titles by key words and then writes the results to database.
+Eventually, should be able to do custom searches, select which job sites to include and then pass keywords, excluded words, location, etc. to scrapy.
+
+## Resources
+
+[Create an AWS Lambda Deployment Package for Python](https://docs.aws.amazon.com/lambda/latest/dg/with-s3-example-deployment-pkg.html#Python)
+[AWS Lambda Function Handler for Python](https://docs.aws.amazon.com/lambda/latest/dg/python-programming-model-handler-types.html)
