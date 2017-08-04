@@ -25,4 +25,5 @@ Eventually, should be able to do custom searches, select which job sites to incl
 ## Resources
 
 [Create an AWS Lambda Deployment Package for Python](https://docs.aws.amazon.com/lambda/latest/dg/with-s3-example-deployment-pkg.html#Python)
+
 [AWS Lambda Function Handler for Python](https://docs.aws.amazon.com/lambda/latest/dg/python-programming-model-handler-types.html)
