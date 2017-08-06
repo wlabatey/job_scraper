@@ -11,6 +11,6 @@ os.environ['SCRAPY_SETTINGS_MODULE'] = 'job_scraper.settings'
 logging.root.setLevel(logging.INFO)
 scrapydo.setup()
 
-def start_scrape(event, content):
+def start_scrape(event, context):
     scrapydo.run_spider(StackOverflowSpider)
     scrapydo.run_spider(DiceSpider)
