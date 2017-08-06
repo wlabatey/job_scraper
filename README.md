@@ -22,6 +22,8 @@ Create a button to get new results which calls the API and invokes the lambda fu
 
 Eventually, should be able to do custom searches, select which job sites to include and then pass keywords, excluded words, location, etc. to scrapy.
 
+Should be able to configure how many pages of results to scrape, to be able to speed up scrape process.
+
 ## Resources
 
 [Build An API To Expose An AWS Lambda Function](https://docs.aws.amazon.com/apigateway/latest/developerguide/getting-started.html)
