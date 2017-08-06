@@ -2,8 +2,6 @@
 
 Searches Stackoverflow & Dice for jobs and saves the results to DynamoDB.
 
-Run `python3 scrape.py` to scrape job sites, save the results to DynamoDB and open `static_page/index.html` in chrome.
-
 ## To Do
 
 - Add button to static page to run Lambda function via api gateway, then clear screen and rebuild elements from DynamoDB when function has finished running.
