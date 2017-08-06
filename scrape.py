@@ -5,7 +5,7 @@ import scrapy
 from twisted.internet import reactor
 from scrapy.crawler import CrawlerRunner
 from job_scraper.spiders.stackoverflow import StackOverflowSpider
-from job_scraper.spiders.dicer import DiceSpider
+from job_scraper.spiders.dice import DiceSpider
 from crochet import setup
 setup()
 
