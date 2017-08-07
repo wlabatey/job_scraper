@@ -7,6 +7,8 @@ Searches Stackoverflow & Dice for jobs and saves the results to DynamoDB.
 - Add button to static page to run Lambda function via api gateway, then clear screen and rebuild elements from DynamoDB when function has finished running.
 - Add more job boards (weworkremotely, remotive, indeed, reed).
 
+- Store results as single DynamoDb item in JSON format, identified by hash of user ip + browser identifier, which is attempted to be retrieved on page load. This will allow results stored on a per user basis as a single table item. Add controls to clear results and search again based on new parameters. 
+
 - ~~Create a Lambda deployment package of the scrapy project & test (See links at bottom).~~ Done. Now working in AWS Lambda with scrapydo. 
 - ~~Use DynamoDB for storage instead of s3. Use the [AWS Javascript SDK](https://aws.amazon.com/sdk-for-browser/) & [AWS Python SDK](https://aws.amazon.com/sdk-for-python/). Will need to check for existing jobs in table to avoid duplicates on new scrapes. Check pricing.~~ Done. Approx. $2/month. 
 - ~~Implement JSON export pipeline to export each spider's results into separate json files, then fetch and display each json file separately.~~
@@ -23,6 +25,8 @@ Create a button to get new results which calls the API and invokes the lambda fu
 Eventually, should be able to do custom searches, select which job sites to include and then pass keywords, excluded words, location, etc. to scrapy.
 
 Should be able to configure how many pages of results to scrape, to be able to speed up scrape process.
+
+
 
 ## Resources
 
