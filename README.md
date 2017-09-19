@@ -16,9 +16,13 @@ Avoid using API gateway and DynamoDB. Invoke the lambda function directly from t
 ### Resources:
 
 [Scrapydo documentation (See the scrapydo.run_spider example)](https://github.com/rmax/scrapydo)
+
 [Pass user defined arguments into scrapy spiders](https://stackoverflow.com/questions/15611605/how-to-pass-a-user-defined-argument-in-scrapy-spider)
+
 [Save scrape results into list of dicts](https://stackoverflow.com/a/23574703/8300614)
+
 [Convert list of dicts to json in python](https://stackoverflow.com/questions/21525328/python-converting-a-list-of-dictionaries-to-json)
+
 [Invoke a Lambda Function from javascript](https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/browser-invoke-lambda-function-example.html)
 
 -----
