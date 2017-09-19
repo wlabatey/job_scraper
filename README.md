@@ -2,7 +2,19 @@
 
 Searches Stackoverflow & Dice for jobs and saves the results to DynamoDB.
 
-## To Do
+## To Do (Adapt to new architecture)
+
+- Scrapy saves job items as list of dictionaries (1 per job)
+- Convert list of dicts to json object
+- Return json of processed jobs from AWS Lambda function
+- Invoke lambda function directly from static page using AWS Javascript SDK.
+- Remove DynamoDB.
+- Add search box and button to front end to invoke lambda function. (Start with job titles)
+- Pass arguments into scrapy to use for searching.
+
+Avoid using API gateway and DynamoDB. Invoke the lambda function directly from the page and then return the results. No need to store long term if it's fast enough!
+
+## To Do (Old)
 
 - Add button to static page to run Lambda function via api gateway, then clear screen and rebuild elements from DynamoDB when function has finished running.
 - Add more job boards (weworkremotely, remotive, indeed, reed).
