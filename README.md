@@ -25,6 +25,7 @@ Avoid using API gateway and DynamoDB. Invoke the lambda function directly from t
 
 [Invoke a Lambda Function from javascript](https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/browser-invoke-lambda-function-example.html)
 
+[Building a python AWS Lambda deployment package](https://medium.com/the-python-backend/hassle-free-python-lambda-deployment-tutorial-script-9c65bcf47e26)
 -----
 
 ## To Do (Old)
