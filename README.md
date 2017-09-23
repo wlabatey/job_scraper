@@ -1,4 +1,4 @@
-(https://travis-ci.org/wlabatey/job_scraper.svg?branch=master)
+![Build Status](https://travis-ci.org/wlabatey/job_scraper.svg?branch=master)
 
 # Simple Job Scraper
 
