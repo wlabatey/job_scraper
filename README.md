@@ -1,3 +1,5 @@
+(https://travis-ci.org/wlabatey/job_scraper.svg?branch=master)
+
 # Simple Job Scraper
 
 ~~Searches Stackoverflow & Dice for jobs and saves the results to DynamoDB.~~
