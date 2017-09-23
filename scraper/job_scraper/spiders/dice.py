@@ -6,7 +6,7 @@ import re
 from scrapy.spiders import CrawlSpider, Rule
 from scrapy.selector import Selector
 from scrapy.linkextractors import LinkExtractor
-from job_scraper.items import DiceItem
+from job_scraper.items import Job
 from datetime import datetime
 
 class DiceSpider(CrawlSpider):
@@ -31,7 +31,7 @@ class DiceSpider(CrawlSpider):
         jobs = hxs.xpath('//div[contains(@class, "searchResultTitle")]')
         items = []
         for job in jobs:
-            item = DiceItem()
+            item = Job()
             item["title"] = job.xpath('.//h2/a[contains(@id, "TITLE")]/text()').extract()[0].strip()
             company = job.xpath('.//p/span[contains(@id, "CONTACT_OFFICE")]/text()').extract()
             item["company"] = company[0].strip() if company else "n/a"
