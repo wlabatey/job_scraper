@@ -1,12 +1,12 @@
 language: python
 
 python:
-- 3.6
+- "3.6"
 
 install:
 - pip install -r scraper/requirements.txt # Install all the necessary dependencies before running tests
 
-cache: pip # Cache the installed dependencies between builds to save time
+cache: # Cache the installed dependencies between builds to save time
   directories: 
     - $HOME/.cache/pip
 
@@ -14,7 +14,7 @@ before_cache:
   - rm -f $HOME/.cache/pip/log/debug.log # Remove log files from cached directory to avoid affecting the cache.
 
 script:
-- pytest -v # Run Pytest in verbose mode 
+- pytest -sv # Run Pytest in verbose mode 
 
 sudo: false   # Explicitly set so we take advantage of Travis CI's container-based infrastructure. 
               # https://docs.travis-ci.com/user/migrating-from-legacy/#How-can-I-use-container-based-infrastructure%3F

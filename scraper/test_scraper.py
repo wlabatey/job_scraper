@@ -3,9 +3,9 @@
 
 import pytest
 
-def sam_is_a_nonce():
-    print("\n\nSam is a nonce\n\n")
+def example():
+    print("\n\nThis is just an example test\n\n")
     return True
 
-def test_if_sam_is_a_nonce():
-    assert sam_is_a_nonce() == True
+def test_example():
+    assert example() == True
