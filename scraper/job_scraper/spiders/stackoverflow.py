@@ -6,7 +6,7 @@ import re
 from scrapy.spiders import Spider
 from scrapy.selector import Selector
 from scrapy.linkextractors import LinkExtractor
-from job_scraper.items import StackOverflowItem
+from job_scraper.items import Job
 from datetime import datetime
 
 class StackOverflowSpider(Spider):
@@ -29,7 +29,7 @@ class StackOverflowSpider(Spider):
         jobs = hxs.xpath('//div[contains(@class, "-job-item")]')
         items = []
         for job in jobs:
-            item = StackOverflowItem()
+            item = Job()
             item["title"] = job.xpath('.//a[@class="job-link"]/text()').extract()[0]
             item["company"] = job.xpath('.//div[@class="-name"]/text()').extract()[0].strip()
             item["location"] = re.sub(r'\W+', '', job.xpath('.//div[@class="-location"]/text()').extract()[0].strip())
