@@ -22,6 +22,11 @@ sudo: false   # Explicitly set so we take advantage of Travis CI's container-bas
 git:
   depth: 3 # Limit the depth of cloned repository to the last 3 commits. 
 
+branches: # Only run builds for commits to master and dev branches
+  only:
+    - master
+    - dev
+
 notifications: # Send notifications to a top secret IRC channel for each build.
   irc:
     on_success: always
