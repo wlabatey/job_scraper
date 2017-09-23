@@ -1,0 +1,7 @@
+notifications:
+  irc:
+    channels:
+      - "pj2x+UhyVllFQoO9O6IamzYZS0X5fl7GmKsLPeNhDwbfvf9VjfJGMuaG4tkWAJ0vsSKdn0R1ROgoTBTlsEezRGQAa3e0yLwOX3Ka5x6ZGti+Cwfg1HKTX+u4R3KjqntIaT+mxfAdMLJ2b43bmsKE+1uT4GZc4RCCmzf3X8LMwh6dERtyoPZno1cMDS9HRRIdcFn/AwTI++JdhEWRxWuNiNA0WERZ0kA3GaDUP0glqN0yC+1Jrnj870rp+73mxy3rxmSNz9m2T1+NoVoEKq5CyePeUN0fM2TM1ZqE8VdjiAnwowcyysNc6cXg7noKHw0/CPfcM+/tWhw8h13y5n242M3aFYjpWRX5BcIsY6EE9+iwgbzdO/th08JCFmlVAj3ib8R+0acaQO/lyViKMhsqpc7BG4lDVqMWHqfrOpnb9E97ix1gheOTq7efRNi8m2z/rizvMj+PruKLwX6iUJsfOsp6Hsn1Lx9kn/0PeyZdnCV37MzFTWzekCgvrJF65C85GQYleRV6iuJtB4WIjh5bHFXyE2v3ZcUlESGSODy67ZOHoBta6l471fTmZAfgJ5/yVS+k/neSaz1VPu+6FZIl8+45evLHRcpdBC57CgIlLH4wNMwHL/RBBhWV/OZzt+t8b/PjZ3YS/dtJ4ms1pk15X0CIB6v2TgvIt+8e/eVnJwc="
+    on_success: always
+    on_failure: always
+    use_notice: true
