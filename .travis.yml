@@ -1,11 +1,28 @@
 language: python
+
 python:
 - 3.6
+
 install:
-- pip install -r scraper/requirements.txt
+- pip install -r scraper/requirements.txt # Install all the necessary dependencies before running tests
+
+cache: pip # Cache the installed dependencies between builds to save time
+  directories: 
+    - $HOME/.cache/pip
+
+before_cache:
+  - rm -f $HOME/.cache/pip/log/debug.log # Remove log files from cached directory to avoid affecting the cache.
+
 script:
-- pytest -sv
-notifications:
+- pytest -v # Run Pytest in verbose mode 
+
+sudo: false   # Explicitly set so we take advantage of Travis CI's container-based infrastructure. 
+              # https://docs.travis-ci.com/user/migrating-from-legacy/#How-can-I-use-container-based-infrastructure%3F
+
+git:
+  depth: 3 # Limit the depth of cloned repository to the last 3 commits. 
+
+notifications: # Send notifications to a top secret IRC channel for each build.
   irc:
     on_success: always
     on_failure: always
