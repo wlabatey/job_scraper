@@ -7,18 +7,7 @@
 
 from scrapy.item import Item, Field
 
-class StackOverflowItem(Item):
-    title = Field()
-    company = Field()
-    location = Field()
-    url = Field()
-    salary = Field()
-    date_posted = Field()
-    crawl_timestamp = Field()
-    job_board = Field()
-    pass
-
-class DiceItem(Item):
+class Job(Item):
     title = Field()
     company = Field()
     location = Field()
