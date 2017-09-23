@@ -11,7 +11,7 @@ so = os.path.abspath('json/stackoverflow.json')
 dice = os.path.abspath('json/dice.json')
 spiders = {'stackoverflow': so, 'dice': dice}
 s3_bucket = 's3://jobs-json'
-static_page = os.path.abspath('static_page/index.html')
+static_page = os.path.abspath('../site/index.html')
 
 process = CrawlerProcess(get_project_settings())
 

@@ -1,6 +1,12 @@
 # Simple Job Scraper
 
-Searches Stackoverflow & Dice for jobs and saves the results to DynamoDB.
+~~Searches Stackoverflow & Dice for jobs and saves the results to DynamoDB.~~
+
+Job site aggregator. Scrapes results from multiple job sites and returns result to web page.
+
+Uses AWS Lambda, Python, Scrapy & Travis CI.
+
+Will eventually use Django for the web app. 
 
 ## To Do (Adapt to new architecture)
 
@@ -26,35 +32,10 @@ Avoid using API gateway and DynamoDB. Invoke the lambda function directly from t
 [Invoke a Lambda Function from javascript](https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/browser-invoke-lambda-function-example.html)
 
 [Building a python AWS Lambda deployment package](https://medium.com/the-python-backend/hassle-free-python-lambda-deployment-tutorial-script-9c65bcf47e26)
+
 -----
 
-## To Do (Old)
-
-- Add button to static page to run Lambda function via api gateway, then clear screen and rebuild elements from DynamoDB when function has finished running.
-- Add more job boards (weworkremotely, remotive, indeed, reed).
-
-- Store results as single DynamoDb item in JSON format, identified by hash of user ip + browser identifier, which is attempted to be retrieved on page load. This will allow results stored on a per user basis as a single table item. Add controls to clear results and search again based on new parameters. 
-
-- ~~Create a Lambda deployment package of the scrapy project & test (See links at bottom).~~ Done. Now working in AWS Lambda with scrapydo. 
-- ~~Use DynamoDB for storage instead of s3. Use the [AWS Javascript SDK](https://aws.amazon.com/sdk-for-browser/) & [AWS Python SDK](https://aws.amazon.com/sdk-for-python/). Will need to check for existing jobs in table to avoid duplicates on new scrapes. Check pricing.~~ Done. Approx. $2/month. 
-- ~~Implement JSON export pipeline to export each spider's results into separate json files, then fetch and display each json file separately.~~
-- ~~Use javascript instead of php to dynamically create the page elements.~~
-- ~~Host the static file on S3.~~
-- ~~Use css grid to display as boxes (4/5 per row)~~
-
-## Future ideas
-
-~~Should be able to deploy scrapy as a lambda function which is invokable from API gateway, then host static page in S3.~~
-
-Create a button to get new results which calls the API and invokes the lambda function, writing the new results to DynamoDB and then rebuild the elements on the page.
-
-Eventually, should be able to do custom searches, select which job sites to include and then pass keywords, excluded words, location, etc. to scrapy.
-
-Should be able to configure how many pages of results to scrape, to be able to speed up scrape process.
-
-
-
-## Resources
+#### Old Resources
 
 [Build An API To Expose An AWS Lambda Function](https://docs.aws.amazon.com/apigateway/latest/developerguide/getting-started.html)
 
