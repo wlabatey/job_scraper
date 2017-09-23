@@ -1,12 +1,12 @@
 language: python
 
 python:
-- 3.6
+- "3.6"
 
 install:
 - pip install -r scraper/requirements.txt # Install all the necessary dependencies before running tests
 
-cache: pip # Cache the installed dependencies between builds to save time
+cache: # Cache the installed dependencies between builds to save time
   directories: 
     - $HOME/.cache/pip
 
