@@ -24,7 +24,7 @@ RUN wget https://www.python.org/ftp/python/3.6.2/Python-3.6.2.tar.xz \
   && tar -xvf Python-3.6.2.tar.xz \  
   && rm Python-3.6.2.tar.xz \
   && cd Python-3.6.2 \
-  && ./configure --enable-optimizations --prefix=/usr/local \ 
+  && ./configure --enable-loadable-sqlite-extensions --enable-optimizations --prefix=/usr/local \ 
   && make \
   && make altinstall \
   && rm -rf Python-3.6.2 \ 
