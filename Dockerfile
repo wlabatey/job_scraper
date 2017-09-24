@@ -2,7 +2,7 @@ FROM amazonlinux:2017.03.0.20170812
 LABEL maintainer="wlab@startmail.com"
 
 ENV PATH /usr/local/bin:$PATH
-ENV LANG C.UTF-8
+ENV LANG en_US.UTF-8
 
 WORKDIR /opt
 
