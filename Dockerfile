@@ -1,4 +1,4 @@
-FROM amazonlinux:2017.03
+FROM amazonlinux:2017.03.0.20170812
 LABEL maintainer="wlab@startmail.com"
 
 ENV PATH /usr/local/bin:$PATH
@@ -40,13 +40,13 @@ RUN wget https://bootstrap.pypa.io/get-pip.py \
   && ln -s pip3.6 pip \
   && ln -s pip3.6 pip3
 
-# Install virtualenv 
-RUN pip3 install virtualenv awscli
+# Install virtualenv & awscli
+RUN pip3 install virtualenv awscli --no-cache-dir
+
+## To do:
 
 # Create virtual environment with python 3.6, probably in /opt/virtualenv
 # Install all pip dependencies inside virtual environment
 # Copy all dependencies from /opt/virtualenv/lib/python3.6/site-packages to /opt/dist
 # Copy source code from /opt/job_scraper/scraper to /opt/dist
 # Share /opt/dist with host using a volume to persist the data. Will be used to test locally or build a deployment package from.
-
-CMD ["/bin/bash"]
