@@ -1,27 +1,52 @@
 FROM amazonlinux:2017.03
 LABEL maintainer="wlab@startmail.com"
 
+ENV PATH /usr/local/bin:$PATH
+ENV LANG C.UTF-8
+
 WORKDIR /opt
 
-COPY . /opt/job_scraper
+# Install dependencies, then clean cache
+RUN yum install -y \
+  findutils \
+  xz \
+  wget \
+  gcc \
+  zlib \
+  zlib-devel \
+  openssl \
+  openssl-devel \
+  && yum clean all \
+  && rm -rf /var/cache/yum/x86_64/latest/*
 
-RUN yum install -y xz wget find gcc zlib zlib-devel openssl openssl-devel
-
-# Download, compile & install python 3.6.2
+# Download, compile & install python 3.6.2, then add symlinks to python & python3
 RUN wget https://www.python.org/ftp/python/3.6.2/Python-3.6.2.tar.xz \
   && tar -xvf Python-3.6.2.tar.xz \  
   && rm Python-3.6.2.tar.xz \
   && cd Python-3.6.2 \
   && ./configure --enable-optimizations --prefix=/usr/local \ 
   && make \
-  && make altinstall 
+  && make altinstall \
+  && rm -rf Python-3.6.2 \ 
+  && cd /usr/local/bin \
+  && ln -s python3.6 python \
+  && ln -s python3.6 python3 
 
-# Download & install pip along with necessary packages
+# Download & install pip along with necessary packages, then add symlinks
 RUN wget https://bootstrap.pypa.io/get-pip.py \
-  && python3 get-pip.py \
-  && pip3 install virtualenv
+  && python get-pip.py \
+  && rm get-pip.py \
+  && cd /usr/local/bin \
+  && ln -s pip3.6 pip \
+  && ln -s pip3.6 pip3
 
+# Install virtualenv 
+RUN pip3 install virtualenv awscli
+
+# Create virtual environment with python 3.6, probably in /opt/virtualenv
+# Install all pip dependencies inside virtual environment
+# Copy all dependencies from /opt/virtualenv/lib/python3.6/site-packages to /opt/dist
+# Copy source code from /opt/job_scraper/scraper to /opt/dist
+# Share /opt/dist with host using a volume to persist the data. Will be used to test locally or build a deployment package from.
 
 CMD ["/bin/bash"]
-
-#CMD ["/bin/bash", "/opt/job_scraper/build/build.sh"]
