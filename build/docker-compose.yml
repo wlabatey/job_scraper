@@ -1,0 +1,9 @@
+version: "3.3"
+services:
+  python-build:
+    build: .
+    image: wlabatey/python-build:test 
+    volumes:
+      - type: bind
+        source: ..
+        target: /usr/src/app
