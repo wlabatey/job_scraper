@@ -110,6 +110,10 @@ cd /usr/src/app/scraper/ && cp -rf . /usr/src/app/dist/src/
 printf "\n\nCreating zip file...\n\n"
 cd /usr/src/app/dist/src/ && zip -r9 /usr/src/app/dist/bundle/lambda-bundle.zip .
 
+printf "\n\nDeactivating & cleaning up virtualenv...\n\n"
+deactivate
+rm -rf /usr/src/app/virtualenv
+
 printf "\n---------------------------------------------------"
 printf "\n  ⚡️ Deployment package created successfully!  ⚡️  "
 printf "\n---------------------------------------------------\n\n"

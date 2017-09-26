@@ -1,7 +1,7 @@
 DOCKER = 'docker'
 DOCKER_COMPOSE = 'docker-compose'
 
-COMPOSE_FILE_BUILD = './build/docker-compose.yml'
+COMPOSE_FILE_BUILD = './.build/docker-compose.yml'
 COMPOSE_FILE_LAMBDA = './.docker-compose-lambda.yml'
 
 clear-all: clear-con clear-img
