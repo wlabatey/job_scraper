@@ -13,6 +13,8 @@ clear-img:
 	$(DOCKER) rmi -f `$(DOCKER) images -aq`
 
 rebuild: dbuild bundle
+	
+rebuildrun: dbuild bundle lambda
 
 dbuild:
 	$(DOCKER_COMPOSE) -f $(COMPOSE_FILE_BUILD) build
