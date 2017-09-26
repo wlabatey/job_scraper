@@ -12,6 +12,8 @@ clear-con:
 clear-img:
 	$(DOCKER) rmi -f `$(DOCKER) images -aq`
 
+run: bundle lambda
+
 rebuild: dbuild bundle
 	
 rebuildrun: dbuild bundle lambda
@@ -24,5 +26,3 @@ bundle:
 
 lambda:
 	$(DOCKER_COMPOSE) -f $(COMPOSE_FILE_LAMBDA) up
-
-full: bundle lambda
