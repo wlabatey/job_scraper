@@ -1,4 +1,4 @@
-FROM python:2.7.14
+FROM python:2.7.14-slim
 
 RUN mkdir -p /usr/src/app 
 
