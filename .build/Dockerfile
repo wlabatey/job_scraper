@@ -5,6 +5,7 @@ RUN mkdir -p /usr/src/app
 # Install needed packages
 RUN apt-get update \
   && apt-get install -y \
+  gcc \
   zip 
 
 # Install pip dependencies

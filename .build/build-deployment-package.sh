@@ -35,7 +35,7 @@ if [[ -d /usr/src/app/dist ]]; then
   if [[ -d /usr/src/app/dist/src ]]; then
     printf "src directory found!"
     printf "\n\nclearing..."
-    rm -rf /usr/src/app/dist/src/ 
+    rm -rfv /usr/src/app/dist/src/ 
     mkdir -p /usr/src/app/dist/src/ 
   else
     printf "\n\n| WARNING | /dist/src folder not found... "
@@ -46,7 +46,7 @@ if [[ -d /usr/src/app/dist ]]; then
   if [[ -d /usr/src/app/dist/bundle ]]; then
     printf "bundle directory found!" 
     printf "\n\nclearing..."
-    rm -rf /usr/src/app/dist/src/ 
+    rm -rfv /usr/src/app/dist/src/ 
     mkdir -p /usr/src/app/dist/src/ 
   else
     printf "\n\n| WARNING | /dist/bundle folder not found... "
@@ -64,7 +64,7 @@ printf "\n\nChecking for virtualenv folder... "
 if [[ -d /usr/src/app/virtualenv ]]; then
   printf "virtualenv folder found!"
   printf "\n\nclearing..."
-  rm -rf /usr/src/app/virtualenv/
+  rm -rfv /usr/src/app/virtualenv/
   mkdir -p /usr/src/app/virtualenv/
 else
   printf "\n\n| WARNING | virtualenv folder not found... "
@@ -102,10 +102,10 @@ printf "\nCopying source code & dependencies to dist/src folder"
 printf "\n----------------------------------------------------\n\n"
 
 printf "\n\nCopying pip packages...\n\n"
-cd /usr/src/app/virtualenv/lib/python2.7/site-packages/ && cp -rf . /usr/src/app/dist/src/
+cd /usr/src/app/virtualenv/lib/python2.7/site-packages/ && cp -rvf . /usr/src/app/dist/src/
 
 printf "\n\nCopying source code from scraper folder...\n\n"
-cd /usr/src/app/scraper/ && cp -rf . /usr/src/app/dist/src/
+cd /usr/src/app/scraper/ && cp -rvf . /usr/src/app/dist/src/
 
 ## Commenting out zip file creation. Takes time and not needed for now.
 
@@ -114,7 +114,7 @@ cd /usr/src/app/scraper/ && cp -rf . /usr/src/app/dist/src/
 
 printf "\n\nDeactivating & cleaning up virtualenv...\n\n"
 deactivate
-rm -rf /usr/src/app/virtualenv
+rm -rfv /usr/src/app/virtualenv
 
 printf "\n---------------------------------------------------"
 printf "\n  ⚡️ Deployment package created successfully!  ⚡️  "
