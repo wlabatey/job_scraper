@@ -16,7 +16,7 @@ NEWSPIDER_MODULE = 'job_scraper.spiders'
 
 FEED_EXPORT_ENCODING = 'utf-8'
 FEED_FORMAT = 'json'
-FEED_URI = 'file:///home/will/Programming/Git/my_repos/job_scraper/json/results.json' 
+# FEED_URI = 'jobs.json' 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'job_scraper (+http://www.yourdomain.com)'
@@ -68,10 +68,9 @@ DOWNLOAD_DELAY = 0.01
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-   'job_scraper.pipelines.JobScraperPipeline': 100,
-   'job_scraper.pipelines.DuplicatesPipeline': 500,
-   'job_scraper.pipelines.JsonExportPipeline': 700,
-   'job_scraper.pipelines.DynamoDBPipeline': 900,
+   # 'job_scraper.pipelines.JobScraperPipeline': 100,
+   # 'job_scraper.pipelines.DuplicatesPipeline': 500,
+   'job_scraper.pipelines.JsonExportPipeline': 500,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
