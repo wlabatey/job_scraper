@@ -107,8 +107,10 @@ cd /usr/src/app/virtualenv/lib/python2.7/site-packages/ && cp -rf . /usr/src/app
 printf "\n\nCopying source code from scraper folder...\n\n"
 cd /usr/src/app/scraper/ && cp -rf . /usr/src/app/dist/src/
 
-printf "\n\nCreating zip file...\n\n"
-cd /usr/src/app/dist/src/ && zip -r9 /usr/src/app/dist/bundle/lambda-bundle.zip .
+## Commenting out zip file creation. Takes time and not needed for now.
+
+#printf "\n\nCreating zip file...\n\n"
+#cd /usr/src/app/dist/src/ && zip -r9 /usr/src/app/dist/bundle/lambda-bundle.zip .
 
 printf "\n\nDeactivating & cleaning up virtualenv...\n\n"
 deactivate
@@ -118,29 +120,3 @@ printf "\n---------------------------------------------------"
 printf "\n  ⚡️ Deployment package created successfully!  ⚡️  "
 printf "\n---------------------------------------------------\n\n"
 exit 0 
-
-##### CHECK PROJECT FILES / FOLDERS / DEPENDENCIES
-
-# Check for job_scraper folder in current directory (/usr/src/app in container).
-
-# If not found, exit with error. Remind to mount project directory to /usr/src/app in container.
-# If found, check for dist folder.
-# If dist folder found, echo folder has been found.
-# If found & not empty, clear contents.
-# If not found, prompt to create dist folder.
-# Check for dist/src & dist/bundle, if not found then create
-# Check for virtualenv folder.
-# If found, echo virtualenv doler has been found.
-# If found & not empty, clear contents.
-
-# Check for existence of python2 & virtualenv.
-# If python2 exists, Create python2 virtualenv environment inside virtualenv folder
-
-# Check for existence of pip.
-
-# pip install all dependencies from requirements.txt
-# Recursively copy all pip packages from virtualenv/lib/python2.7/site-packages* to dist/src* (make sure . files/folders get copied too)
-# Recursively copy all files from job_scraper/* to dist/src/
-# Check for existence of .zip files in dist/bundle. If found, count number and add total + 1 to name of zip file. 
-# Zip all files in dist/src/* to dist/bundle/lambda-bundle{1}.zip
-# Exit with status 0
