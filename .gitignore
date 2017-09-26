@@ -5,6 +5,9 @@ so.json
 **/.swp
 **/.json
 *.json
+src/
+bundle/
+dist/**
 virtualenv/**
 virtualenv/
 
