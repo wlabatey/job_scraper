@@ -34,7 +34,7 @@ if [[ -d /usr/src/app/dist ]]; then
   printf "\n\nChecking for /dist/src... "
   if [[ -d /usr/src/app/dist/src ]]; then
     printf "src directory found!"
-    printf "\n\nclearing..."
+    printf "\n\nclearing...\n"
     rm -rfv /usr/src/app/dist/src/ 
     mkdir -p /usr/src/app/dist/src/ 
   else
@@ -45,7 +45,7 @@ if [[ -d /usr/src/app/dist ]]; then
   printf "\n\nChecking for /dist/bundle... "
   if [[ -d /usr/src/app/dist/bundle ]]; then
     printf "bundle directory found!" 
-    printf "\n\nclearing..."
+    printf "\n\nclearing...\n"
     rm -rfv /usr/src/app/dist/src/ 
     mkdir -p /usr/src/app/dist/src/ 
   else
@@ -63,7 +63,7 @@ fi
 printf "\n\nChecking for virtualenv folder... "
 if [[ -d /usr/src/app/virtualenv ]]; then
   printf "virtualenv folder found!"
-  printf "\n\nclearing..."
+  printf "\n\nclearing...\n"
   rm -rfv /usr/src/app/virtualenv/
   mkdir -p /usr/src/app/virtualenv/
 else
