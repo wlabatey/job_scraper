@@ -1,0 +1,9 @@
+version: "3.3"
+services:
+  lambda:
+    image: lambci/lambda:python2.7
+    volumes:
+      - type: bind
+        source: ./dist/src
+        target: /var/task
+    command: ["scrape.start_scrape"]

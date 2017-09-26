@@ -1,14 +1,14 @@
-FROM python:2.7.14-alpine3.6
+FROM python:2.7.14
 
 RUN mkdir -p /usr/src/app 
 
-RUN apk update && apk add \
-  bash \
-  util-linux \
-  coreutils \
-  binutils \
-  findutils \
-  grep 
+# Install needed packages
+RUN apt-get update \
+  && apt-get install -y \
+  zip 
+
+# Install pip dependencies
+RUN pip install virtualenv 
 
 WORKDIR /usr/src/app
 

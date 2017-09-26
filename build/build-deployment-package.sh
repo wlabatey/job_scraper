@@ -83,6 +83,38 @@ pip --version && printf "\n"
 command -v virtualenv >/dev/null 2>&1 || { printf "\n\n| ERROR | Virtualenv is not installed." ; exit 1; }
 printf "virtualenv $(virtualenv --version)\n"
 
+
+printf "\n\n--------------------------------------------------------"
+printf "\nCreating virtual environment & installing dependencies..."
+printf "\n--------------------------------------------------------\n\n"
+
+printf "\n\nCreating virtual environment...\n\n"
+virtualenv -p $(which python2) /usr/src/app/virtualenv
+
+printf "\n\nActivating virtual environment...\n\n"
+source /usr/src/app/virtualenv/bin/activate
+
+printf "\n\nInstalling dependencies...\n\n"
+pip install -r /usr/src/app/scraper/requirements.txt
+
+printf "\n\n----------------------------------------------------"
+printf "\nCopying source code & dependencies to dist/src folder"
+printf "\n----------------------------------------------------\n\n"
+
+printf "\n\nCopying pip packages...\n\n"
+cd /usr/src/app/virtualenv/lib/python2.7/site-packages/ && cp -rf . /usr/src/app/dist/src/
+
+printf "\n\nCopying source code from scraper folder...\n\n"
+cd /usr/src/app/scraper/ && cp -rf . /usr/src/app/dist/src/
+
+printf "\n\nCreating zip file...\n\n"
+cd /usr/src/app/dist/src/ && zip -r9 /usr/src/app/dist/bundle/lambda-bundle.zip .
+
+printf "\n---------------------------------------------------"
+printf "\n  ⚡️ Deployment package created successfully!  ⚡️  "
+printf "\n---------------------------------------------------\n\n"
+exit 0 
+
 ##### CHECK PROJECT FILES / FOLDERS / DEPENDENCIES
 
 # Check for job_scraper folder in current directory (/usr/src/app in container).
