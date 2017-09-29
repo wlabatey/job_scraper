@@ -9,7 +9,7 @@ python:
 - '3.6'
 
 env:
-- COMPOSE_FILE_BUILD = ${TRAVIS_BUILD_DIR}/.build/docker-compose.yml
+- COMPOSE_FILE_BUILD = $TRAVIS_BUILD_DIR/.build/docker-compose.yml
 
 before_install:
 # Update docker
@@ -41,7 +41,7 @@ cache:
 
 # Bundle application after tests have completed
 after_success:
-- /usr/local/bin/docker-compose --file ${COMPOSE_FILE_BUILD} up
+- /usr/local/bin/docker-compose --file $COMPOSE_FILE_BUILD up
 
 # Deploy to AWS Lambda
 deploy:
