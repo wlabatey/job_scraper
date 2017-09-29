@@ -20,8 +20,7 @@ before_install:
 
 # Update docker-compose
 - sudo rm /usr/local/bin/docker-compose
-- curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname
-  -s`-`uname -m` > docker-compose
+- curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname-s`-`uname -m` > docker-compose
 - chmod +x docker-compose
 - sudo mv docker-compose /usr/local/bin
 
@@ -44,7 +43,7 @@ cache:
 
 # Bundle application after tests have completed
 after_success:
-- $DOCKER_COMPOSE -f $COMPOSE_FILE_BUILD up
+- docker-compose --file ${COMPOSE_FILE_BUILD} up
 
 # Deploy to AWS Lambda
 deploy:
