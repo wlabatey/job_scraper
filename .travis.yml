@@ -9,9 +9,7 @@ python:
 - '3.6'
 
 env:
-- DOCKER_COMPOSE_VERSION=1.16.1
-- DOCKER_COMPOSE = /usr/local/bin/docker-compose
-- COMPOSE_FILE_BUILD = '${TRAVIS_BUILD_DIR}/.build/docker-compose.yml'
+- COMPOSE_FILE_BUILD = ${TRAVIS_BUILD_DIR}/.build/docker-compose.yml
 
 before_install:
 # Update docker
@@ -20,7 +18,7 @@ before_install:
 
 # Update docker-compose
 - sudo rm /usr/local/bin/docker-compose
-- curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+- curl -L https://github.com/docker/compose/releases/download/1.16.1/docker-compose-Linux-x86_64 > docker-compose
 - chmod +x docker-compose
 - sudo mv docker-compose /usr/local/bin
 
@@ -43,7 +41,7 @@ cache:
 
 # Bundle application after tests have completed
 after_success:
-- docker-compose --file ${COMPOSE_FILE_BUILD} up
+- /usr/local/bin/docker-compose --file ${COMPOSE_FILE_BUILD} up
 
 # Deploy to AWS Lambda
 deploy:
