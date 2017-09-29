@@ -44,7 +44,7 @@ cache:
 
 # Bundle application after tests have completed
 after_success:
-- `${DOCKER_COMPOSE} -f ${COMPOSE_FILE_BUILD} up`
+- $DOCKER_COMPOSE -f $COMPOSE_FILE_BUILD up
 
 # Deploy to AWS Lambda
 deploy:
@@ -55,7 +55,7 @@ deploy:
   runtime: python2.7
   module_name: scrape
   handler: start_scrape
-  zip: `${TRAVIS_BUILD_DIR}/dist/bundle/lambda-bundle.zip`
+  zip: $TRAVIS_BUILD_DIR/dist/bundle/lambda-bundle.zip
   timeout: 300
   role:
     secure: "sInx0+BvZywQ2AW+pq9luA89UTPgTN6K9Qv0DcXGKlutEiQ7lh/G4oD6siviMeGj34YPO0by22PfCfZ3RQdtCudSMzwS4Ip9REbv5Qsd+joVAChLojuraj1FpLlmgQSmXlUazVR3SznwIVQMmAKDdl3QZ/zX5c4504XnfnHcnJOVBf78muYfUE49zI48l57N4zzzO80RrM4ecAXLzn2nKcy/v23B8pQJ3MEWwTNW12AeJCniFpGlLbjuKjD1QfoaoMDCF4Rd8cXAAdthTvKODXviwSLnTvYVPBB3iZ+Cva4reEi6jH8PnVaEhPV3m4w3ofIW0437MeR05IymcrePqDcV2GxuI2OOjH3evfuvh1YYeuNxc9bmCMwVFr7JqI6lho5kDyn7KaoMIjdH7PIPK3t01H8jtlCrDJRC6RA+gtgxcmUD95vSim7/LeZ1048MDZ0I11fx0wZn8u6vlVwP77VBcI/XULOXU0ehkd1jDD9VHd6D+9B3wK5X/n5WFphUEfHYNR8tQPFXtU4OXuOCLA524NXa65ENiUYe7aucgY+b/vvogigFB/4Fq7s2G3Q7zKU+dwyxT4eb5PWQmDWM1hI2DHBN3UmZwXgGxWpEbpame0EHKZcL1hy3ITUhGRQek23/SGxg2576a6zusyR6v/aUoD/eAIHFWhyOd8HT2Ew="
