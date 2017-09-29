@@ -48,7 +48,7 @@ deploy:
   region: eu-west-2
   runtime: python2.7
   module_name: scrape
-  handler: start_scrape
+  handler_name: start_scrape
   zip: $TRAVIS_BUILD_DIR/dist/bundle/lambda-bundle.zip
   timeout: 300
   on:
