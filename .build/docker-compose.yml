@@ -3,6 +3,8 @@ services:
   python-build:
     build: .
     image: wlabatey/python-build:test 
+    cache_from:
+      - python:2.7.14-slim
     volumes:
       - type: bind
         source: ..
