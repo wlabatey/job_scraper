@@ -107,10 +107,8 @@ cd /usr/src/app/virtualenv/lib/python2.7/site-packages/ && cp -rvf . /usr/src/ap
 printf "\n\nCopying source code from scraper folder...\n\n"
 cd /usr/src/app/scraper/ && cp -rvf . /usr/src/app/dist/src/
 
-## Commenting out zip file creation. Takes time and not needed for now.
-
-#printf "\n\nCreating zip file...\n\n"
-#cd /usr/src/app/dist/src/ && zip -r9 /usr/src/app/dist/bundle/lambda-bundle.zip .
+printf "\n\nCreating zip file...\n\n"
+cd /usr/src/app/dist/src/ && zip -r9 /usr/src/app/dist/bundle/lambda-bundle.zip .
 
 printf "\n\nDeactivating & cleaning up virtualenv...\n\n"
 deactivate

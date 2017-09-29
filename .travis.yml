@@ -1,36 +1,82 @@
 language: python
 
+sudo: required
+
+services:
+- docker
+
 python:
-- "3.6"
+- '3.6'
 
+env:
+- DOCKER_COMPOSE_VERSION=1.16.1
+- DOCKER_COMPOSE = /usr/local/bin/docker-compose
+- COMPOSE_FILE_BUILD = '${TRAVIS_BUILD_DIR}/.build/docker-compose.yml'
+
+before_install:
+# Update docker
+- sudo apt-get update
+- sudo apt-get -y -o Dpkg::Options::="--force-confnew" install docker-ce
+
+# Update docker-compose
+- sudo rm /usr/local/bin/docker-compose
+- curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname
+  -s`-`uname -m` > docker-compose
+- chmod +x docker-compose
+- sudo mv docker-compose /usr/local/bin
+
+# Install pip dependencies
 install:
-- pip install -r scraper/requirements.txt # Install all the necessary dependencies before running tests
+- pip install -r scraper/requirements.txt
 
-cache: # Cache the installed dependencies between builds to save time
-  directories: 
-    - $HOME/.cache/pip
-
-before_cache:
-  - rm -f $HOME/.cache/pip/log/debug.log # Remove log files from cached directory to avoid affecting the cache.
-
+# Run python tests
 script:
-- pytest -sv # Run Pytest in verbose mode 
+- pytest -sv
 
-sudo: false   # Explicitly set so we take advantage of Travis CI's container-based infrastructure. 
-              # https://docs.travis-ci.com/user/migrating-from-legacy/#How-can-I-use-container-based-infrastructure%3F
+# Remove pip log files to save space
+before_cache:
+- rm -f $HOME/.cache/pip/log/debug.log
+
+# Cache pip dependencies to save space between builds
+cache:
+  directories:
+  - "$HOME/.cache/pip"
+
+# Bundle application after tests have completed
+after_success:
+- "${DOCKER_COMPOSE} -f ${COMPOSE_FILE_BUILD} up"
+
+# Deploy to AWS Lambda
+deploy:
+  provider: lambda
+  description: "Scrapy lambda function test deployment"
+  function_name: scraper-test
+  region: eu-west-2
+  runtime: python2.7
+  module_name: scrape
+  handler: start_scrape
+  zip: ${TRAVIS_BUILD_DIR}/dist/bundle/lambda-bundle.zip
+  timeout: 300
+  role:
+    secure: "sInx0+BvZywQ2AW+pq9luA89UTPgTN6K9Qv0DcXGKlutEiQ7lh/G4oD6siviMeGj34YPO0by22PfCfZ3RQdtCudSMzwS4Ip9REbv5Qsd+joVAChLojuraj1FpLlmgQSmXlUazVR3SznwIVQMmAKDdl3QZ/zX5c4504XnfnHcnJOVBf78muYfUE49zI48l57N4zzzO80RrM4ecAXLzn2nKcy/v23B8pQJ3MEWwTNW12AeJCniFpGlLbjuKjD1QfoaoMDCF4Rd8cXAAdthTvKODXviwSLnTvYVPBB3iZ+Cva4reEi6jH8PnVaEhPV3m4w3ofIW0437MeR05IymcrePqDcV2GxuI2OOjH3evfuvh1YYeuNxc9bmCMwVFr7JqI6lho5kDyn7KaoMIjdH7PIPK3t01H8jtlCrDJRC6RA+gtgxcmUD95vSim7/LeZ1048MDZ0I11fx0wZn8u6vlVwP77VBcI/XULOXU0ehkd1jDD9VHd6D+9B3wK5X/n5WFphUEfHYNR8tQPFXtU4OXuOCLA524NXa65ENiUYe7aucgY+b/vvogigFB/4Fq7s2G3Q7zKU+dwyxT4eb5PWQmDWM1hI2DHBN3UmZwXgGxWpEbpame0EHKZcL1hy3ITUhGRQek23/SGxg2576a6zusyR6v/aUoD/eAIHFWhyOd8HT2Ew="
+  access_key_id:
+    secure: "bdC4v6bQYUPDSjb4Xv5BEjCapCHT+TduUpWErrpIV3r5qaPDZzv78plYJCn4M4DPrZ7oDb7uFd8IhQD+DvJWbkycRhDaXYOohaAJm2JXBrZ1hl2EF5bX9v3N9V7Z5VsVp6F3zN4bzlAxLMMVvfJn4AnQyDpZuBFFoGUzM3PotNDuF8PgMH6yVVIym9dH1KFfOCZRVyUvRvv3pbvETugAMvLXDHkKaHIt7kXYLMTrIZG7fRKnw9q9UDI5sYKbSyqgf73cq3RG9Eh+bLb6wlMHkhbHaV4LY05dlxIXg+Qk8HrbB2/hMcFjTV20kr29jlUaNMfVAPjAH9rEH6YBzEHp8wTJ7pxapPHwOA73oOJhf27kwJNE6Kpnh3i2mnjQ1zNACTLXevxxjJb9q6/IPAQoS8wHEXBrUGzgmNsx0iv4tx4L2W3HfoChEE3oUFKVqenWuYEEXG3KhHTFtUfmurAwIaCm1OQA5yZgqBMNrIKItSTTCkq6uVgCIZj2e2E2qWc5SSMhTuPQ3noEu0m0Mb0u/dEJko3tDNM0temwh1SRYJ5S1BMXiKgv8Xvmir1Gc/fNJLRWilmPYuw6pm2zRRBR0L+sX6EdgTo8qJFNeXhgVvLvkEC3ofNCwNmVGcOWeVU+G96R5WOw99ebMwLAaMQ3Ih8ptiqDEGpL3Qcjh4335Fs="
+  secret_access_key:
+    secure: "ryY/mPEa57dps/YL1VWCknhLYbzTY+rcVlx0U38WSK//iZ6QxKNwVvz5TclCiLW1xD/6vqLQNwD0tcjsYCanAk/aVTdSzJAHE9qtDR70RBDRbHrcQOXnlD+y7lnjnYXW7OaVBTvIeAWzGvUkyoErEnmYpztkhnqEQH+Xa5DQV6eSxy01T4HcO0PXfoIakumQRUZmMk/BNCaFfzPAgAdWo3//OBo5dA6OJeWhvsV4FJPeOQ5JQ05AbHohW6zvy3WJWw+82bUn1i0Cnslvvu0+fO8I03BwKHM+aY6Krhho3ooP7QbP25Aka2gpZBw2i3LwqJQw9Y58OMWM8twTCQ3GR/tqNgZZl7BPJw6h6FYBRrgWS8A4vvw6UFkQNoI/jBoHXa5XZ6jaj9JcRukcVh4YtfRVcVPQGDDBoiMi1CsAA4lbv6j4xvoBfeZ3FTOskEhimilmR/4pzQ/sMuwWYF/LdkbxL8qwnK9DWSvnJAhTMZyGy+WnY/Qf/iAfVOmgk9TYMk32OPG1+BW5GtW3bYGzUg3SPbRIt3KZYMWPlJXDunayqhSBlO5OqhJC05OohohVyEg4LDWeXta7DfPBCvPe2xUDQRMdZKm5mvZajs71CIcw2dam2JCnACRxBjykL5bKJjba8p4iTARp4DcysMuGH6QxhCDW5w4coAH2xSUn5A8="
 
 git:
-  depth: 3 # Limit the depth of cloned repository to the last 3 commits. 
+  depth: 3
 
-branches: # Only run builds for commits to master and dev branches
+branches:
   only:
-    - master
-    - dev
+  - master
+  - dev
 
-notifications: # Send notifications to a top secret IRC channel for each build.
+# Send notifications to IRC channel
+notifications:
   irc:
     on_success: always
     on_failure: always
     use_notice: true
     channels:
-      secure: tpotWC8VNWOtgVpZ1vKiwuNUjqbcvwx6jjXju06SRyMz50P1G6CwwUGQEaKellaLLlIliE+D/pnQMkkPAqjV4rXJgJvrPcHB6chB1/Fvm1lhic/lG5H3Od3uYHfGR0o8MTxcKQA93SIhSs0iVjnzy/cpETEXjpsQ2HVwOMJSwsm+VkfHiozJ7oJhtsdBKy4IwnE5moR36Mgc66BdauuV+V77QHZKdJsdM/hpz6L6rZ0FmZkj4gb70ZGz2N0hnrsPQoxrrsAhdazsYgiGRQeRcVOPSK2fhb/RFDrbdN9brOS4XkU8UIDjyGxXiYExcdrmSDHC8zihbwgpwMI4sjw5+TQ/eiyFhq2OkHtBMjPLDE+3cemU+0dzJlH6opcf1aR5f/pqLmbmXe/Masf/TrB503A9+g1JxJ6IrdXNTzBagb3+fq00K3dWcOjBJD/SXFs6Us8BzfMgR0f1M6p59Dr9JWxqrveFMUvvYeurioed/x3c5D/1C1ccD/YnNkb1IOJvHWoa1g2KYISq6tkT9Urs2G6WE/0aQ7ucdfshEXnYUuL5qGcpQSecaBXKCxLxQeeVqf60lUzzQc2w43hBz5vf3cjVnl7JfkZtmRXae+ZA9YDCnnwGRDKdUxTwbxB88/rQ12p5bLrd2pQVflHzGXqWMa+ZKpLDlh7zgIbzJjxKGg4=
+      secure: "tpotWC8VNWOtgVpZ1vKiwuNUjqbcvwx6jjXju06SRyMz50P1G6CwwUGQEaKellaLLlIliE+D/pnQMkkPAqjV4rXJgJvrPcHB6chB1/Fvm1lhic/lG5H3Od3uYHfGR0o8MTxcKQA93SIhSs0iVjnzy/cpETEXjpsQ2HVwOMJSwsm+VkfHiozJ7oJhtsdBKy4IwnE5moR36Mgc66BdauuV+V77QHZKdJsdM/hpz6L6rZ0FmZkj4gb70ZGz2N0hnrsPQoxrrsAhdazsYgiGRQeRcVOPSK2fhb/RFDrbdN9brOS4XkU8UIDjyGxXiYExcdrmSDHC8zihbwgpwMI4sjw5+TQ/eiyFhq2OkHtBMjPLDE+3cemU+0dzJlH6opcf1aR5f/pqLmbmXe/Masf/TrB503A9+g1JxJ6IrdXNTzBagb3+fq00K3dWcOjBJD/SXFs6Us8BzfMgR0f1M6p59Dr9JWxqrveFMUvvYeurioed/x3c5D/1C1ccD/YnNkb1IOJvHWoa1g2KYISq6tkT9Urs2G6WE/0aQ7ucdfshEXnYUuL5qGcpQSecaBXKCxLxQeeVqf60lUzzQc2w43hBz5vf3cjVnl7JfkZtmRXae+ZA9YDCnnwGRDKdUxTwbxB88/rQ12p5bLrd2pQVflHzGXqWMa+ZKpLDlh7zgIbzJjxKGg4="
