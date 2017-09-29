@@ -19,7 +19,7 @@ before_install:
 - chmod +x docker-compose
 - sudo mv docker-compose /usr/local/bin
 
-# Install pip dependencies
+# Install pip dependencies - Might not be necessary....
 install:
 - pip install -r scraper/requirements.txt
 
@@ -31,7 +31,7 @@ script:
 before_cache:
 - rm -f $HOME/.cache/pip/log/debug.log
 
-# Cache pip dependencies to save space between builds
+# Cache pip dependencies to save time between builds
 cache:
   directories:
   - "$HOME/.cache/pip"
