@@ -1,9 +1,10 @@
 <html>
   <head>
-    <title>Dev Ops Job Listings</title>
+    <title>Job Scanner</title>
        <style>
         html {
           overflow-y: scroll;
+          font-family: Helvetica, sans-serif;
         }
         .container {
           margin: 0 auto;
@@ -24,22 +25,46 @@
         .job p {
           margin: 0;
         }
-        .controls {
+        .centre {
           text-align: center;
         }
-        .controls label {
+
+        #controls {
+          margin: 0 0 50px;
+        }
+
+        #controls label {
           margin: 0 10px 0 5px;
+          font-size: 0.8em;
+        }
+
+        #stackOverflow_select {
+          vertical-align: middle;
+        }
+
+        #search {
+          margin: 100px 20px 75px 20px;
+        }
+
+        #search h1 {
+          margin: 0 0 75px;
         }
      </style>  
   </head>
   
   <body>
-    <div class="container">
-        <div class="controls">
-        <input type="checkbox" name="stackOverflow" id="stackOverflow_select" checked><label for="stackOverflow_select">Stack Overflow</label>
-        <input type="checkbox" name="dice" id="dice_select" ><label for="dice_select">Dice</label>
-        <input type="checkbox" name="indeed" id="indeed_select" ><label for="indeed_select">Indeed</label>
-        <input type="checkbox" name="reed" id="reed_select" ><label for="reed_select">Reed</label>
+    <div class="container centre">
+        <div class="centre" id="search">
+          <h1>Job Scanner</h1>
+          <input type="text" id="searchQuery">
+          <button id="searchButton">Find me a job!</button>
+        </div>
+        <div class="centre" id="controls">
+          <h5>Select job sites to scan</h5>
+          <input type="checkbox" name="stackOverflow" id="stackOverflow_select" checked><label for="stackOverflow_select">Stack Overflow</label>
+          <!--<input type="checkbox" name="dice" id="dice_select" ><label for="dice_select">Dice</label>-->
+          <!--<input type="checkbox" name="indeed" id="indeed_select" ><label for="indeed_select">Indeed</label>-->
+          <!--<input type="checkbox" name="reed" id="reed_select" ><label for="reed_select">Reed</label>-->
         </div>
       <div class="jobsGrid">
       </div>
@@ -47,6 +72,6 @@
 
     <script src="https://sdk.amazonaws.com/js/aws-sdk-2.94.0.min.js"></script>
     <script type="text/javascript" src="creds.js"> </script>
-    <script type="text/javascript" src="db.js"> </script>
+    <script type="text/javascript" src="search.js"> </script>
   </body>
 </html>
