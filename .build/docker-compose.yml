@@ -1,11 +1,12 @@
 version: "3.3"
 services:
   python-build:
-    build: .
-    image: wlabatey/python-build:2.7.14-slim
-    cache_from:
-      - python:2.7.14-slim
-      - wlabatey/python-build:2.7.14-slim
+    build: 
+      context: .
+      image: wlabatey/python-build:test
+      cache_from:
+        - python:2.7.14-slim
+        - wlabatey/python-build:2.7.14-slim
     volumes:
       - type: bind
         source: ..
