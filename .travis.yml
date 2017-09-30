@@ -38,6 +38,7 @@ cache:
 
 # Bundle application after tests have completed
 after_success:
+- docker pull wlabatey/python-build:2.7.14-slim
 - /usr/local/bin/docker-compose -f $TRAVIS_BUILD_DIR/.build/docker-compose.yml up
 
 # Deploy to AWS Lambda
