@@ -76,11 +76,11 @@ printf "\n\n----------------------------------------"
 printf "\nChecking python, pip & virtualenv..."
 printf "\n------------------------------------------\n\n"
 
-command -v python >/dev/null 2>&1 || { printf "\n\n| ERROR | Python is not installed." ; exit 1; }
+command -v python >/dev/null 2>&1 || { printf "\n\n| ERROR | Python is not installed."; exit 1; }
 python --version && printf "\n"
-command -v pip >/dev/null 2>&1 || { printf "\n\n| ERROR | Pip is not installed." ; exit 1; }
+command -v pip >/dev/null 2>&1 || { printf "\n\n| ERROR | Pip is not installed."; exit 1; }
 pip --version && printf "\n"
-command -v virtualenv >/dev/null 2>&1 || { printf "\n\n| ERROR | Virtualenv is not installed." ; exit 1; }
+command -v virtualenv >/dev/null 2>&1 || { printf "\n\n| ERROR | Virtualenv is not installed."; exit 1; }
 printf "virtualenv $(virtualenv --version)\n"
 
 
@@ -108,7 +108,7 @@ printf "\n\nCopying source code from scraper folder...\n\n"
 cd /usr/src/app/scraper/ && cp -rf . /usr/src/app/dist/src/
 
 printf "\n\nCreating zip file...\n\n"
-cd /usr/src/app/dist/src/ && zip -r9 -q -T /usr/src/app/dist/bundle/lambda-bundle.zip . && printf "\n\nZip created successfully\n\n" || printf "\n\nZip creation failed!\n\n" && exit 1 
+cd /usr/src/app/dist/src/ && zip -r9 -q -T /usr/src/app/dist/bundle/lambda-bundle.zip . && printf "\n\nZip created successfully!\n\n" || { printf "\n\nZip creation failed!\n\n"; exit 1; } 
 
 printf "\n\nDeactivating & cleaning up virtualenv...\n\n"
 deactivate
