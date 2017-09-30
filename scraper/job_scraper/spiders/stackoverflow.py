@@ -31,8 +31,8 @@ class StackOverflowSpider(Spider):
         search_query = "sort=i&q=%s&l=%s&d=%s" 
         base_url = "https://stackoverflow.com/jobs?"
         start_urls = []
-        for search_word in enumerate(self.search_terms):
-            start_urls.append(base_url + search_query % (search_word, location, distance))
+        for i, word in enumerate(self.search_terms):
+            start_urls.append(base_url + search_query % (self.search_terms[i], location, distance))
         return [ scrapy.http.Request(url = start_url) for start_url in start_urls ]
 
     def parse(self, response):
