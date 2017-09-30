@@ -1,8 +1,12 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python2
 # -*- coding: utf-8 -*-
+
+# Remember we are using python 2 at the moment
+from __future__ import print_function
 
 import scrapy
 import re
+
 from scrapy.spiders import Spider
 from scrapy.selector import Selector
 from scrapy.linkextractors import LinkExtractor
@@ -11,17 +15,24 @@ from datetime import datetime
 
 class StackOverflowSpider(Spider):
     name = "stackoverflow"
-    allowed_domains = ['stackoverflow.com']
+    allowed_domains = ["stackoverflow.com"]
+
+    def __init__(self, search_params=None, *args, **kwargs):
+        super(StackOverflowSpider, self).__init__(*args, **kwargs)
+
+        if not search_params:
+            raise ValueError("No search terms given")
+
+        self.search_terms = search_params.split(",")
 
     def start_requests(self):
-        search_terms = ["dev+ops", "devops", "junior+dev+ops", "junior+devops", "aws", "cloud", "linux"]
         location = "London%2C+United+Kingdom"
         distance = "20&u=Miles"
-        search_query = 'sort=i&q=%s&l=%s&d=%s' 
-        base_url = 'https://stackoverflow.com/jobs?'
+        search_query = "sort=i&q=%s&l=%s&d=%s" 
+        base_url = "https://stackoverflow.com/jobs?"
         start_urls = []
-        for i, word in enumerate(search_terms):
-            start_urls.append(base_url + search_query % (search_terms[i], location, distance))
+        for search_word in enumerate(self.search_terms):
+            start_urls.append(base_url + search_query % (search_word, location, distance))
         return [ scrapy.http.Request(url = start_url) for start_url in start_urls ]
 
     def parse(self, response):

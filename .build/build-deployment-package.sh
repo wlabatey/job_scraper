@@ -108,7 +108,11 @@ printf "\n\nCopying source code from scraper folder...\n\n"
 cd /usr/src/app/scraper/ && cp -rf . /usr/src/app/dist/src/
 
 printf "\n\nCreating zip file...\n\n"
-cd /usr/src/app/dist/src/ && zip -r9 -q -T /usr/src/app/dist/bundle/lambda-bundle.zip . && printf "\n\nZip created successfully!\n\n" || { printf "\n\nZip creation failed!\n\n"; exit 1; } 
+if [[ "${DEBUG}" = true ]]; then
+  printf "\n\nSkipping zip file creation as we are in debug mode...\n\n"
+else
+  cd /usr/src/app/dist/src/ && zip -r9 -q -T /usr/src/app/dist/bundle/lambda-bundle.zip . && printf "\n\nZip created successfully!\n\n" || { printf "\n\nZip creation failed!\n\n"; exit 1; } 
+fi
 
 printf "\n\nDeactivating & cleaning up virtualenv...\n\n"
 deactivate

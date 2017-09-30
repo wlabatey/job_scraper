@@ -2,6 +2,7 @@ DOCKER = 'docker'
 DOCKER_COMPOSE = 'docker-compose'
 
 COMPOSE_FILE_BUILD = './.build/docker-compose.yml'
+COMPOSE_FILE_DEBUG = './.build/docker-compose.debug.yml'
 COMPOSE_FILE_LAMBDA = './.docker-compose-lambda.yml'
 
 clear-all: clear-con clear-img
@@ -22,7 +23,7 @@ dbuild:
 	$(DOCKER_COMPOSE) -f $(COMPOSE_FILE_BUILD) build
 
 bundle:
-	$(DOCKER_COMPOSE) -f $(COMPOSE_FILE_BUILD) up 
+	$(DOCKER_COMPOSE) -f $(COMPOSE_FILE_BUILD) -f $(COMPOSE_FILE_DEBUG) up
 
 lambda:
 	$(DOCKER_COMPOSE) -f $(COMPOSE_FILE_LAMBDA) up

@@ -7,19 +7,21 @@ import logging
 import json
 from pprint import pprint
 from job_scraper.spiders.stackoverflow import StackOverflowSpider
-from job_scraper.spiders.dice import DiceSpider
+# from job_scraper.spiders.dice import DiceSpider
 
-os.environ['SCRAPY_SETTINGS_MODULE'] = 'job_scraper.settings'
+os.environ["SCRAPY_SETTINGS_MODULE"] = "job_scraper.settings"
 logging.root.setLevel(logging.INFO)
 scrapydo.setup()
 
-def start_scrape(event, content):
+def start_scrape(event, context):
     jobs = []
-    scrapydo.run_spider(StackOverflowSpider)
-    # scrapydo.run_spider(DiceSpider)
+
+    spider_args = { 'search_params' : 'dev+ops, devops, junior+dev+ops, junior+devops, aws, cloud, linux' }
+
+    scrapydo.run_spider(StackOverflowSpider, **spider_args)
 
     print("Finished scraping...")
-    with open('/tmp/jobs.json') as job_file:
+    with open("/tmp/jobs.json") as job_file:
         jobs = json.load(job_file)
 
     pprint(jobs)
