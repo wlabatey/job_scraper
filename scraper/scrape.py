@@ -22,7 +22,6 @@ def start_scrape(event, context):
 
     with open("/tmp/jobs.json") as job_file:
         jobs = json.load(job_file)
-        job_file.write(""); # Clear the file
 
     open("/tmp/jobs.json", 'w').close() # Clean the jobs file after we are done with it.
 
