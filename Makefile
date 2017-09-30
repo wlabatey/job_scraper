@@ -27,3 +27,7 @@ bundle:
 
 lambda:
 	$(DOCKER_COMPOSE) -f $(COMPOSE_FILE_LAMBDA) up
+
+clean:
+	sudo rm -rf ./dist/*
+	sudo rm -rf ./virtualenv
