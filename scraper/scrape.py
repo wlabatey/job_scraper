@@ -17,13 +17,13 @@ def start_scrape(event, context):
     jobs = []
 
     spider_args = { 'search_params' : event['search_params'] }
-
     scrapydo.run_spider(StackOverflowSpider, **spider_args)
 
     print("Finished scraping...")
 
     with open("/tmp/jobs.json") as job_file:
         jobs = json.load(job_file)
+        job_file.write(""); # Clear the file
 
     # pprint(jobs)
     return jobs
