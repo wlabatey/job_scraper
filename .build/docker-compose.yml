@@ -3,7 +3,6 @@ services:
   python-build:
     build: 
       context: .
-      image: wlabatey/python-build:2.7.14-slim
       cache_from:
         - python:2.7.14-slim
         - wlabatey/python-build:2.7.14-slim
