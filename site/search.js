@@ -48,7 +48,9 @@ searchButton.addEventListener("click", function(event) {
         jobDiv.appendChild( document.createElement('p') ).innerHTML = el.location;
         jobDiv.appendChild( document.createElement('p') ).innerHTML = el.date_posted;
         jobDiv.appendChild( document.createElement('p') ).innerHTML = el.salary;
-        jobDiv.appendChild( document.createElement('p') ).innerHTML = el.tags;
+        el.tags.forEach(function(el, i) {
+          jobDiv.appendChild( document.createElement('p') ).innerHTML = el;
+        }
         frag.appendChild(jobDiv);
         div.appendChild(frag);
       });
