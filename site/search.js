@@ -15,7 +15,8 @@ searchButton.addEventListener("click", function(event) {
   let search_params = searchBox.value;
   console.log(search_params);
   let paramObject = {
-    'search_params': search_params
+    'search_params': search_params,
+    'spider': 'stack_overflow'
   };
   lambdaParams.Payload = JSON.stringify(paramObject);
   console.log(lambdaParams);
@@ -47,6 +48,7 @@ searchButton.addEventListener("click", function(event) {
         jobDiv.appendChild( document.createElement('p') ).innerHTML = el.location;
         jobDiv.appendChild( document.createElement('p') ).innerHTML = el.date_posted;
         jobDiv.appendChild( document.createElement('p') ).innerHTML = el.salary;
+        jobDiv.appendChild( document.createElement('p') ).innerHTML = el.tags;
         frag.appendChild(jobDiv);
         div.appendChild(frag);
       });

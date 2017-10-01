@@ -13,6 +13,7 @@ class Job(Item):
     location = Field()
     url = Field()
     salary = Field()
+    tags = Field()
     date_posted = Field()
     crawl_timestamp = Field()
     job_board = Field()

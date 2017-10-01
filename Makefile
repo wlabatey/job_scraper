@@ -15,11 +15,11 @@ clear-con:
 clear-img:
 	$(DOCKER) rmi -f `$(DOCKER) images -aq`
 
-run: bundle lambda
+run: bundle lambda-req
 
 rebuild: dbuild bundle
 	
-rebuildrun: dbuild bundle lambda
+rebuildrun: dbuild bundle lambda-req
 
 dbuild:
 	$(DOCKER_COMPOSE) -f $(COMPOSE_FILE_BUILD) build

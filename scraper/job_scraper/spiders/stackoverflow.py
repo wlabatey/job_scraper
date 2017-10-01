@@ -28,11 +28,17 @@ class StackOverflowSpider(Spider):
     def start_requests(self):
         location = "London%2C+United+Kingdom"
         distance = "20&u=Miles"
-        search_query = "sort=i&q=%s&l=%s&d=%s" 
+        search_query = "sort=p&q=%s&l=%s&d=%s" 
         base_url = "https://stackoverflow.com/jobs?"
         start_urls = []
-        for i, word in enumerate(self.search_terms):
-            start_urls.append(base_url + search_query % (self.search_terms[i], location, distance))
+
+        # No longer need to loop through search terms for now. Assuming 1 search at a time.
+
+        # for i, word in enumerate(self.search_terms):
+            # start_urls.append(base_url + search_query % (self.search_terms[i], location, distance))
+
+        start_urls.append(base_url + search_query % (self.search_terms, location, distance))
+
         return [ scrapy.http.Request(url = start_url) for start_url in start_urls ]
 
     def parse(self, response):
@@ -47,6 +53,7 @@ class StackOverflowSpider(Spider):
             item["url"] = job.xpath('.//a[@class="job-link"]/@href').extract()[0]
             item["date_posted"] = job.xpath('.//p[contains(@class, "-posted-date")]/text()').extract()[0].strip()
             item["salary"] = job.xpath('.//span[@class="-salary"]/text()').extract_first(default='n/a').strip()
+            item["tags"] = job.css('.-tags p a.post-tag::text').extract()
             item["crawl_timestamp"] = datetime.now().strftime("%H:%M:%S %Y-%m-%d") 
             item["job_board"] = "stackOverflow"
             items.append(item)

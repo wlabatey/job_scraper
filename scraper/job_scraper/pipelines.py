@@ -56,7 +56,7 @@ class JsonExportPipeline(object):
     def spider_opened(self, spider):
         file = open('/tmp/jobs.json', 'a+')
         self.files[spider] = file
-        self.exporter = JsonItemExporter(file, encoding='utf-8', ensure_ascii=False)
+        self.exporter = JsonItemExporter(file , encoding='utf-8', ensure_ascii=False)
         self.exporter.start_exporting()
 
     def spider_closed(self, spider):

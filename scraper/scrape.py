@@ -15,8 +15,19 @@ scrapydo.setup()
 
 def start_scrape(event, context):
     jobs = []
-    spider_args = { 'search_params' : event['search_params'] }
-    scrapydo.run_spider(StackOverflowSpider, **spider_args)
+
+    spider_map = {
+        'stack_overflow': StackOverflowSpider,
+        # 'dice': DiceSpider
+    }
+
+    spider_args = { 
+        'search_params' : event['search_params'] 
+    }
+
+    spider = spider_map[event['spider']]
+
+    scrapydo.run_spider(spider, **spider_args)
 
     print("Finished scraping...")
 
@@ -25,5 +36,4 @@ def start_scrape(event, context):
 
     open("/tmp/jobs.json", 'w').close() # Clean the jobs file after we are done with it.
 
-    # pprint(jobs)
     return jobs
