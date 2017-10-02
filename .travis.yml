@@ -83,6 +83,7 @@ branches:
 
 # Send notifications to IRC channel
 notifications:
+  email: false
   irc:
     on_success: always
     on_failure: always
